@@ -1,0 +1,39 @@
+target: pc_mini_em.src.data.DataModuleFromConfig
+params:
+  batch_size: 64
+  num_workers: 2
+  drop_last: true
+  pin_memory: true
+  train:
+    target: pc_mini_em.src.data.ImageNet32Train
+    params:
+      root: ../datasets/ImageNet
+      transform_fns:
+        - target: pc_mini_em.src.transforms.Select
+          params:
+            key: img
+        - target: pc_mini_em.src.transforms.Patchify
+          params:
+            patch_size: 16
+            aligned: true
+        - target: pc_mini_em.src.transforms.RGB2YCoCgR
+        - target: pc_mini_em.src.transforms.Flatten
+  validation:
+    target: pc_mini_em.src.data.ImageNet32Validation
+#    batched_item: true
+    params:
+      root: ../datasets/ImageNet
+      transform_fns:
+        - target: pc_mini_em.src.transforms.Select
+          params:
+            key: img
+        - target: pc_mini_em.src.transforms.Patchify
+          params:
+            patch_size: 16
+            aligned: true
+#            all_patches: true
+        - target: pc_mini_em.src.transforms.RGB2YCoCgR
+        - target: pc_mini_em.src.transforms.Flatten
+#          params:
+#              batch_dim: true
+ 

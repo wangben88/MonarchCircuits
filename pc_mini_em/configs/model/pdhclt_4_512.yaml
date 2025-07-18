@@ -1,0 +1,11 @@
+target: pyjuice.structures.PDHCLT
+params:
+  data: __train_data__:20000
+  data_shape: ${as_tuple:3,16,16}
+  num_latents: 512
+  split_intervals: ${as_tuple:3,4,4}
+  max_prod_block_conns: 8
+  input_dist:
+    target: pyjuice.distributions.Categorical
+    params:
+      num_cats: 512

@@ -1,0 +1,6 @@
+target: pyjuice.structures.PD
+params:
+  data_shape: ${as_tuple:3,16,16}
+  num_latents: 128
+  split_intervals: ${as_tuple:3,2,2}
+  max_prod_block_conns: 8

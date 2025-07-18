@@ -1,0 +1,33 @@
+target: pc_mini_em.src.data.DataModuleFromConfig
+params:
+  batch_size: 64
+  num_workers: 8
+  drop_last: true
+  pin_memory: true
+  train:
+    target: pc_mini_em.src.data.ImageNet32Train
+    params:
+      root: ../datasets/ImageNet
+      transform_fns:
+        - target: pc_mini_em.src.transforms.Select
+          params:
+            key: img
+        - target: pc_mini_em.src.transforms.RGB2YCoCg
+        - target: pc_mini_em.src.transforms.Quantize
+          params:
+            num_levels: 256
+        - target: pc_mini_em.src.transforms.Flatten
+  validation:
+    target: pc_mini_em.src.data.ImageNet32Validation
+    params:
+      root: ../datasets/ImageNet
+      transform_fns:
+        - target: pc_mini_em.src.transforms.Select
+          params:
+            key: img
+        - target: pc_mini_em.src.transforms.RGB2YCoCg
+        - target: pc_mini_em.src.transforms.Quantize
+          params:
+            num_levels: 256
+        - target: pc_mini_em.src.transforms.Flatten
+    

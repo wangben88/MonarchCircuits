@@ -1,0 +1,5 @@
+mode: mini_em_scaled
+num_epochs: 1000
+
+step_size: 0.01
+batch_size: 1024
