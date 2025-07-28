@@ -1,6 +1,6 @@
 DATASET=text8
 SEQ_LEN=256
-CUDA_CORES=4,5,6,7
+CUDA_CORES=0,1,2,3
 DIR=../workspace/
 
 python ../monarch_hmm/preprocess_text8.py --output_path ${DIR}/data

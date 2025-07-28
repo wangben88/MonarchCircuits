@@ -1,6 +1,6 @@
 DATASET=text8
 SEQ_LEN=256
-CUDA_CORES=
+CUDA_CORES=0,1,2,3
 DIR=../workspace/
 HIDDEN_STATES_BLOCK_SIZE=524288_512_1024
 
@@ -19,7 +19,7 @@ python ../monarch_hmm/multiply_dense_hmm.py \
     ${DIR}/workspace/models/monarch-hmm_text8_${HIDDEN_STATES_BLOCK_SIZE}/checkpoint-0
 
 # train monarch hmm
-CUDA_VISIBLE_DEVICES=4,5,6,7 torchrun --standalone --nproc_per_node=gpu \
+CUDA_VISIBLE_DEVICES=${CUDA_CORES} torchrun --standalone --nproc_per_node=gpu \
     ../monarch_hmm/train_hmm.py \
     --init_model_path ${DIR}/workspace/models/monarch-hmm_text8_${HIDDEN_STATES_BLOCK_SIZE}/checkpoint-0 \
     --model_path ${DIR}/workspace/models/monarch-hmm_text8_${HIDDEN_STATES_BLOCK_SIZE}/ \
