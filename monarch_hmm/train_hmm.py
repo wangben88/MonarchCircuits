@@ -7,7 +7,6 @@ import numpy
 import torch
 import torch.nn as nn
 import torch.distributed as dist
-import datasets
 
 from tqdm import tqdm
 from hmm import *

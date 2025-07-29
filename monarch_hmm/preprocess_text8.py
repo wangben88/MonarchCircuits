@@ -2,6 +2,7 @@ import torch
 import argparse
 import urllib.request
 import zipfile
+import os
 
 def encode_and_chunk_text8(data, seq_len, char2idx):
     print("Dataset shape", len(data))
@@ -26,6 +27,8 @@ def main():
     # download
     local_filename = f'{args.output_path}/text8.zip'
     url = 'http://mattmahoney.net/dc/text8.zip'
+    if not os.path.exists(args.output_path):
+        os.makedirs(args.output_path)
     urllib.request.urlretrieve(url, local_filename)
     print('Download and save to {}'.format(local_filename))
 

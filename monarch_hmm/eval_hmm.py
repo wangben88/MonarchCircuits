@@ -7,10 +7,9 @@ import numpy
 import torch
 import torch.nn as nn
 import torch.distributed as dist
-import datasets
 
 from tqdm import tqdm
-from monarch import *
+from hmm import HMM, MonarchHMM
 
 torch.backends.cuda.matmul.allow_tf32 = True
 
@@ -25,6 +24,7 @@ if __name__ == '__main__':
     arg_parser.add_argument('--init_model_path', default='', type=str)
     arg_parser.add_argument('--dataset', default='', type=str)
     arg_parser.add_argument('--batch_size', default=32, type=int)
+    arg_parser.add_argument('--monarch', action='store_true')
 
     args = arg_parser.parse_args()
 
@@ -42,7 +42,10 @@ if __name__ == '__main__':
     test_data = test_data.view(args.batch_size, -1)
     print(f'reshaped test size: {test_data.shape}')
 
-    hmm_model = HMM.from_pretrained(f'{args.init_model_path}', map_location='cpu').to(device)
+    if args.monarch:
+        hmm_model = MonarchHMM.from_pretrained(f'{args.init_model_path}', map_location='cpu').to(device)
+    else:
+        hmm_model = HMM.from_pretrained(f'{args.init_model_path}', map_location='cpu').to(device)
 
     with torch.no_grad():
         ll = torch.sum(hmm_model(test_data.to(hmm_model.beta.device))).item()
