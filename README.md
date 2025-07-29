@@ -8,7 +8,7 @@ To reproduce the experiments on the image datasets, first [download](https://www
 
 To reproduce the experiments on the Text8 dataset, run the `train_monarch_hmm.sh` shell script in the experiments directory.
 
-Code for reproducing the Text8 and LM1B text dataset results will be added to this repository soon.
+Code for reproducing the LM1B text dataset results will be added to this repository soon.
 
 ## Citation
     @inproceedings{ZhangICML25,
